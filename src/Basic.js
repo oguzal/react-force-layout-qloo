@@ -37,7 +37,13 @@ class Basic extends Component {
 
 var nodes = [
     { x:   width/3, y: height/2 },
-    { x: 2*width/3, y: height/2 }
+    { x: 2*width/3, y: height/2 },
+    { x: 1.2*width/4.5, y: height/6.4 },
+    { x: 1.2*width/6, y: height/8 },
+    { x: 1.2*width/9, y: height/3 },
+    { x: 1.2*width/4.5, y: height/10 },
+    { x: 1.2*width/4.5, y: height/2.4 }
+
 ];
 
 // The `links` array contains objects with a `source` and a `target`
@@ -45,7 +51,12 @@ var nodes = [
 // the `nodes` array of the two endpoints of the link.
 
 var links = [
-    { source: 0, target: 1 }
+    { source: 0, target: 1 },
+    { source: 2, target: 4 },
+    { source: 3, target: 1 },
+    { source: 4, target: 1 },
+    { source: 5, target: 2 }
+    
 ];
 
 // Here's were the code begins. We start off by creating an SVG
