@@ -1,7 +1,10 @@
 .node {
-    fill: #ccc;
+    fill: red;
     stroke: #fff;
     stroke-width: 2px;
+    background-color: greenyellow;
+    font-size:16px;
+    font-family:verdana;
 }
 
 .link {
