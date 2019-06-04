@@ -1,7 +1,9 @@
 .node {
     fill: red;
-    font-size:10px;
+    font-size:8px;
     font-family:verdana;
+    font-weight: bold;
+    background-color:greenyellow;
 }
 
 .link {
