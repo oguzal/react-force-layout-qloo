@@ -11,7 +11,6 @@ class MusicGraph extends Component {
       nodes: [],
       links: []
     };
-
     // use PureRenderMixin to limit updates when they are not necessary
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
@@ -31,9 +30,6 @@ class MusicGraph extends Component {
       console.log('just after api');
       console.log(data);
       let nodes = [];
-      // nodes.push({ x: baseX, y: baseY, id: 'Gladiator' });
-      console.log('empty arr');
-      console.log(nodes);
 
       let m = data.slice(1, 5).map(p => {
         return {
@@ -46,7 +42,7 @@ class MusicGraph extends Component {
       let mapped = [];
       let xCounter = 50;
       let d;
-      data.slice(1, 5)
+      data.slice(1, 10)
         .forEach(p =>
           mapped.push({ x: baseX, y: baseY + xCounter, id: p.name })
         )
@@ -76,12 +72,11 @@ class MusicGraph extends Component {
         { source: 0, target: 2 },
         { source: 0, target: 3 },
         { source: 0, target: 4 },
-/*         { source: 0, target: 5 },
+        { source: 0, target: 5 },
         { source: 0, target: 6 },
         { source: 0, target: 7 },
         { source: 0, target: 8 },
-        { source: 0, target: 9 },
-        { source: 0, target: 10 } */
+        { source: 0, target: 9 }
       ];
       // Here's were the code begins. We start off by creating an SVG
       // container to hold the visualization. We only need to specify
@@ -98,7 +93,7 @@ class MusicGraph extends Component {
         .links(links);
       //      .charge(-200);
 
-      force.linkDistance = width / 25;
+      force.linkDistance = 100;
 
       var link = svg.selectAll('.link')
         .data(links)
@@ -118,21 +113,19 @@ class MusicGraph extends Component {
         //   .attr('r', 20)
         //.attr('r', width / 25)
         .append('text').text(d => { return d.id; })
-        .attr('fill', 'green')
+       // .attr('fill', 'green')
         .attr('x', d => { return d.x; })
-        .attr('y', d => { console.log(' when adding nodes y =' + d.y); return d.y; })
+        .attr('y', d => {  return d.y; })
         .attr('class', 'node')
         ;
-
-
+       
       force.on('end', function () {
-
         node
           //.attr('class','node')
           .attr('x', d => { return d.x; })
           .attr('y', d => {
             console.log('after end of force,  y=' + d.y + 'index=' + d.index);
-            return d.y + (d.index * 50);
+            return d.y;
           })
           ;
 
@@ -141,7 +134,7 @@ class MusicGraph extends Component {
         // `source` and `target` properties, specifying
         // `x` and `y` values in each case.
 
-        link.attr('x1', function (d) { console.log('end' + d.source.x); return d.source.x; })
+        link.attr('x1', function (d) { console.log('end links x' + d.source.x); return d.source.x; })
           .attr('y1', function (d) { return d.source.y; })
           .attr('x2', function (d) { return d.target.x; })
           .attr('y2', function (d) { return d.target.y; });
