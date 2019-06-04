@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import MusicGraph from './MusicGraph';
-import Graph2 from './Graph2';
+
 function App() {
   return (
     <div className="App">
