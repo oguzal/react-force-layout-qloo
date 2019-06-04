@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
-import Basic from './Basic';
-
+import MusicGraph from './MusicGraph';
+import Graph2 from './Graph2';
 function App() {
   return (
     <div className="App">
       <header className="App-header">
 
-        <Basic height="960" width="600"></Basic>
+        <MusicGraph height="960" width="600"/>
+        
       </header>
     </div>
   );

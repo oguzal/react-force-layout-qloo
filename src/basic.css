@@ -1,9 +1,6 @@
 .node {
     fill: red;
-    stroke: #fff;
-    stroke-width: 2px;
-    background-color: greenyellow;
-    font-size:16px;
+    font-size:10px;
     font-family:verdana;
 }
 
