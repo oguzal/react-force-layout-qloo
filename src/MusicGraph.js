@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import * as vg from 'vega';
 import * as d3 from 'd3';
 import './basic.css';
 import axios from 'axios';
@@ -44,7 +43,7 @@ class MusicGraph extends Component {
       });
 
       songs.unshift({ x: baseX, y: baseY, id: 'Gladiator' });
-      this.state.nodes = songs;
+      this.setState({nodes : songs});
 
       var width = this.props.width,
         height = this.props.height;
