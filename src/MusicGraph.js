@@ -20,7 +20,7 @@ class MusicGraph extends Component {
     this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
   componentWillUnmount() {     
-     console.log('unmount');
+     this.force.stop();
    }
 
   
