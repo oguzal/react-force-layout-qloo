@@ -1,4 +1,4 @@
-import React, {  Component} from "react";
+import React, { Component, ProgressBar } from "react";
 import * as d3 from "d3";
 import "./basic.css";
 import axios from "axios";
@@ -19,7 +19,7 @@ class MusicGraph extends Component {
       { source: 0, target: 7 },
       { source: 0, target: 8 },
       { source: 0, target: 9 }
-    ]
+      ]
     };
     // use PureRenderMixin to limit updates when they are not necessary
     //    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
@@ -33,10 +33,11 @@ class MusicGraph extends Component {
       "https://6bseccziu6.execute-api.us-east-1.amazonaws.com/production/recs?category=music%2Fartists";
     // gladiator &sample=737F3A3E-DA59-415B-B254-0C87DA38E60F';
     url += "&sample=" + this.state.songId;
+    d3.select(".uxmessage").text('Loading relevant songs of '+this.state.name+' ..');
+    
     axios.get(url).then(res => {
+      d3.select(".uxmessage").text('');      
       const data = res.data.results;
-   
-
       // Get top 5 highest affinity songs
       let songs = data.slice(1, 10).map(p => {
         //counter += 20;
@@ -46,7 +47,8 @@ class MusicGraph extends Component {
         };
       });
       songs.unshift({ //x: baseX, y: baseY, 
-        name: this.state.name, id: this.state.songId });
+        name: this.state.name, id: this.state.songId
+      });
       console.log(songs);
       this.setState({ nodes: songs });
 
@@ -69,35 +71,35 @@ class MusicGraph extends Component {
         .linkDistance(150)
         .charge(-300)
         .start();
-        force.on("tick", function() {
-/*           link
-            .attr("x1", function(d) {
-              return d.source.x;
-            })
-            .attr("y1", function(d) {
-              return d.source.y;
-            })
-            .attr("x2", function(d) {
-              return d.target.x;
-            })
-            .attr("y2", function(d) {
-              return d.target.y;
-            }); */
-  
-          node.attr("transform", function(d) {
-            return "translate(" + d.x + "," + d.y + ")";
-          });
+      force.on("tick", function () {
+        /*           link
+                    .attr("x1", function(d) {
+                      return d.source.x;
+                    })
+                    .attr("y1", function(d) {
+                      return d.source.y;
+                    })
+                    .attr("x2", function(d) {
+                      return d.target.x;
+                    })
+                    .attr("y2", function(d) {
+                      return d.target.y;
+                    }); */
+
+        node.attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
         });
+      });
 
 
-/*        svg.selectAll(".link").remove();
-      var link = svg
-        .selectAll(".link")
-        .data(this.state.links)
-        .enter()
-        .append("line")
-        .attr("class", "link"); */
- 
+      /*        svg.selectAll(".link").remove();
+            var link = svg
+              .selectAll(".link")
+              .data(this.state.links)
+              .enter()
+              .append("line")
+              .attr("class", "link"); */
+
       svg.selectAll(".node").remove();
       svg.select(".nodeParent").remove();
       var node = svg
@@ -106,7 +108,7 @@ class MusicGraph extends Component {
         .enter()
         .append("text")
         .text(d => { return d.name; })
-        .attr("class", d=>{return  d.index===0? "nodeParent": "node"})
+        .attr("class", d => { return d.index === 0 ? "nodeParent" : "node" })
         // .attr("fixed", true)
         //.attr("x", d => { return d.x; })
         //.attr("y", d => { return d.y; })
@@ -119,7 +121,7 @@ class MusicGraph extends Component {
           this.updateGraph();
         });
     });
-  }  
+  }
   componentDidMount() {
     this.updateGraph();
   }
@@ -128,6 +130,7 @@ class MusicGraph extends Component {
     if (this.state.nodes)
       return (
         <div>
+          <div className="uxmessage"></div>
           <svg
             className="container"
             width={this.props.width}
@@ -135,7 +138,10 @@ class MusicGraph extends Component {
           />
         </div>
       );
-    else return <div><marquee>Loading data.</marquee></div>;
+    else return <div>
+      'Loading related songs of '+ {this.props.name}
+    </div>
+
   }
 }
 
